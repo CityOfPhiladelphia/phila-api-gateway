@@ -1,0 +1,14 @@
+FROM python:3.6.1
+
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /app
+
+RUN pip install git+https://github.com/CityOfPhiladelphia/eastern-state.git
+RUN pip install --process-dependency-links 'git+https://github.com/CityOfPhiladelphia/api-gateway.git#egg=api_gateway&subdirectory=api'
+
+EXPOSE 5000
+
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]

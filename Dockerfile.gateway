@@ -1,0 +1,17 @@
+FROM node:boron
+
+RUN apt-get install git
+RUN git clone https://github.com/CityOfPhiladelphia/api-gateway.git
+
+WORKDIR /api-gateway/gateway
+
+RUN npm install
+
+COPY entrypoint.sh /entrypoint.sh
+
+COPY config.yml /config.yml
+ENV GATEWAY_CONFIG_PATH /config.yml
+
+EXPOSE 8080
+
+ENTRYPOINT ["/entrypoint.sh"]
